@@ -4,19 +4,19 @@ import Link from "next/Link"
 const Nav = () => (
   <ul className="nav nav-tabs  bg-dark">
     <li className="nav-item ">
-      <a className="nav-link text-white" href="">
-        Home
-      </a>
+      <Link href="/">
+        <a className="nav-link text-white">Home</a>
+      </Link>
     </li>
     <li className="nav-item ">
-      <a className="nav-link text-white" href="">
-        Login
-      </a>
+      <Link href="./login">
+        <a className="nav-link text-white">Login</a>
+      </Link>
     </li>
     <li className="nav-item ">
-      <a className="nav-link text-white" href="">
-        Register
-      </a>
+      <Link href="./register">
+        <a className="nav-link text-white">Register</a>
+      </Link>
     </li>
   </ul>
 );
