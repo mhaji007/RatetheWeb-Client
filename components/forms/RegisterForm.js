@@ -1,4 +1,13 @@
+// Component for rendering register form
+// used by register page
+// state and setstate are passed down
+// as props from register page
+
+import axios from "axios";
+
 function RegisterForm({ state, setState }) {
+  // Dynamic onChange handler
+  // used by all inputs
   const handleChange = (name) => (e) => {
     setState({
       ...state,
@@ -8,10 +17,21 @@ function RegisterForm({ state, setState }) {
       buttonText: "Register",
     });
   };
+  // Destructure state variables
+  const { name, email, password, error, success, buttonText } = state;
 
-  const {name, email, password, error, success, buttonText} = state;
-
-  const handleSubmit = (e) => {};
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // console.table({name, email, password});
+    axios
+      .post(`${process.env.NEXT_PUBLIC_API}/register`, {
+        name,
+        email,
+        password,
+      })
+      .then((response) => console.log(response))
+      .catch((error) => console.log(error));
+  };
 
   return (
     <form onSubmit={handleSubmit}>
@@ -21,8 +41,9 @@ function RegisterForm({ state, setState }) {
           value={name}
           className="form-control"
           placeholder="Enter your name"
+          // pass name of each input to onChange handler
           onChange={handleChange("name")}
-          />
+        />
       </div>
       <div className="form-group">
         <input
@@ -31,7 +52,7 @@ function RegisterForm({ state, setState }) {
           className="form-control"
           placeholder="Enter your email"
           onChange={handleChange("email")}
-          />
+        />
       </div>
       <div className="form-group">
         <input
@@ -49,7 +70,5 @@ function RegisterForm({ state, setState }) {
     </form>
   );
 }
-
-
 
 export default RegisterForm;

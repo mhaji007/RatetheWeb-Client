@@ -1,8 +1,11 @@
+// Page responsible for displaying the register form
+
+
 import { useState } from "react";
 import RegisterForm from "../components/forms/RegisterForm"
 
 const Register = () => {
-
+  // State for storing all user input fields
     const [state, setState] = useState({
       name: "",
       email: "",
