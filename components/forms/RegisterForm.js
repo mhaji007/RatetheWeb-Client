@@ -22,6 +22,7 @@ function RegisterForm({ state, setState }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setState({ ...state, buttonText: "Registering..." });
     // console.table({name, email, password});
     axios
       .post(`${process.env.NEXT_PUBLIC_API}/register`, {
@@ -29,8 +30,23 @@ function RegisterForm({ state, setState }) {
         email,
         password,
       })
-      .then((response) => console.log(response))
-      .catch((error) => console.log(error));
+      .then((response) => {
+        setState({
+          ...state,
+          name: "",
+          email: "",
+          password: "",
+          buttonText: "Submitted",
+          success: response.data.message,
+        });
+      })
+      .catch((error) => {
+        setState({
+          ...state,
+          buttonText: "Register",
+          error: error.response.data.error,
+        });
+      });
   };
 
   return (
