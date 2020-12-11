@@ -20,34 +20,68 @@ function RegisterForm({ state, setState }) {
   // Destructure state variables
   const { name, email, password, error, success, buttonText } = state;
 
-  const handleSubmit = (e) => {
+  // Using axios with async await
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setState({ ...state, buttonText: "Registering..." });
-    // console.table({name, email, password});
-    axios
-      .post(`${process.env.NEXT_PUBLIC_API}/register`, {
-        name,
-        email,
-        password,
-      })
-      .then((response) => {
-        setState({
-          ...state,
-          name: "",
-          email: "",
-          password: "",
-          buttonText: "Submitted",
-          success: response.data.message,
-        });
-      })
-      .catch((error) => {
-        setState({
-          ...state,
-          buttonText: "Register",
-          error: error.response.data.error,
-        });
+    try {
+      const response = await axios.post(
+        `${process.env.NEXT_PUBLIC_API}/register`,
+        {
+          name,
+          email,
+          password,
+        }
+      );
+      console.log(response);
+      setState({
+        ...state,
+        name: "",
+        email: "",
+        password: "",
+        buttonText: "Submitted",
+        success: response.data.message,
       });
+    } catch (error) {
+      console.log(error);
+      setState({
+        ...state,
+        buttonText: "Register",
+        error: error.response.data.error,
+      });
+    }
   };
+
+  // Using axios with promises
+
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   setState({ ...state, buttonText: "Registering..." });
+  //   // console.table({name, email, password});
+  //   axios
+  //     .post(`${process.env.NEXT_PUBLIC_API}/register`, {
+  //       name,
+  //       email,
+  //       password,
+  //     })
+  //     .then((response) => {
+  //       setState({
+  //         ...state,
+  //         name: "",
+  //         email: "",
+  //         password: "",
+  //         buttonText: "Submitted",
+  //         success: response.data.message,
+  //       });
+  //     })
+  //     .catch((error) => {
+  //       setState({
+  //         ...state,
+  //         buttonText: "Register",
+  //         error: error.response.data.error,
+  //       });
+  //     });
+  // };
 
   return (
     <form onSubmit={handleSubmit}>
