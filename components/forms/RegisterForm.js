@@ -91,9 +91,10 @@ function RegisterForm({ state, setState }) {
           value={name}
           className="form-control"
           placeholder="Enter your name"
+          required
           // pass name of each input to onChange handler
           onChange={handleChange("name")}
-        />
+          />
       </div>
       <div className="form-group">
         <input
@@ -101,8 +102,9 @@ function RegisterForm({ state, setState }) {
           value={email}
           className="form-control"
           placeholder="Enter your email"
+          required
           onChange={handleChange("email")}
-        />
+          />
       </div>
       <div className="form-group">
         <input
@@ -110,8 +112,9 @@ function RegisterForm({ state, setState }) {
           value={password}
           className="form-control"
           placeholder="Enter your password"
+          required
           onChange={handleChange("password")}
-        />
+          />
         <div className="form-group"></div>
         <div className="form-group">
           <button className="btn-outline-primary">Register</button>
