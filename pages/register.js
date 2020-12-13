@@ -28,7 +28,7 @@ const Register = () => {
         <br />
         <RegisterForm state={state} setState={setState} />
         <br />
-        {JSON.stringify(state)}
+        {/* {JSON.stringify(state)} */}
       </div>
     </>
   );

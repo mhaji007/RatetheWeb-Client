@@ -11,12 +11,12 @@ const Nav = () => (
     </li>
     <div className="d-flex ">
       <li className="nav-item">
-        <Link href="./login">
+        <Link href="/login">
           <a className="nav-link text-white">Login</a>
         </Link>
       </li>
       <li className="nav-item ">
-        <Link href="./register">
+        <Link href="/register">
           <a className="nav-link text-white">Register</a>
         </Link>
       </li>
