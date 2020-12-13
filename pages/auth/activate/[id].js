@@ -9,7 +9,7 @@
 // useRouter is a hook and can be used in functional components.
 // It cannot however be used in class components.
 // withRouter, on the other hand, can be used in both functional and class components,
-// since it's a HOC, higher order component. But with class components there
+// since it's a HOC, a higher order component. But with class components there
 // is no other choice than to use withRouter.
 
 import { useState, useEffect } from "react";
@@ -79,7 +79,6 @@ const ActivateAccount = ({ router }) => {
         <div className="col-md-6 offset-md-3">
           <h1>Hello {name}, </h1>
           <p>Ready to activate your account? </p>
-          <br />
           {success && showSuccessMessage(success)}
           {error && showErrorMessage(error)}
           <button
