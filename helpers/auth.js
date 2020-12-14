@@ -40,7 +40,7 @@ export const setLocalStorage = (key, value) => {
 };
 
 // Remove from local storage
-export const setLocalStorage = (key, value) => {
+export const removeLocalStorage = (key, value) => {
   if (process.browser) {
     localStorage.removeItem(key);
   }

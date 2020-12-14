@@ -5,6 +5,8 @@
 
 import axios from "axios";
 import Link from "next/Link";
+import { authenticate } from "../../helpers/auth";
+import Router from "next/router";
 
 function LoginForm({ state, setState }) {
   // Dynamic onChange handler
@@ -19,7 +21,7 @@ function LoginForm({ state, setState }) {
     });
   };
   // Destructure state variables
-  const {email, password, error, success, buttonText } = state;
+  const { email, password, error, success, buttonText } = state;
 
   // Using axios with async await
   const handleSubmit = async (e) => {
@@ -33,7 +35,9 @@ function LoginForm({ state, setState }) {
           password,
         }
       );
-      console.log(response);
+
+      console.log("Response from login", response);
+      authenticate(response, () => Router.push("/"));
     } catch (error) {
       console.log(error);
       setState({
