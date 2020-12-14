@@ -4,8 +4,16 @@
 // as props from register page
 
 import axios from "axios";
+import { useEffect } from "react";
+import {isAuth } from "../../helpers/auth";
+import Router from "next/router";
 
 function RegisterForm({ state, setState }) {
+  // Check to see whether we have user info in local storage
+  // on component mounting, if we have, redirect user to homepage
+  useEffect(() => {
+    isAuth() && Router.push("/");
+  }, []);
   // Dynamic onChange handler
   // used by all inputs
   const handleChange = (name) => (e) => {
@@ -94,7 +102,7 @@ function RegisterForm({ state, setState }) {
           required
           // pass name of each input to onChange handler
           onChange={handleChange("name")}
-          />
+        />
       </div>
       <div className="form-group">
         <input
@@ -104,7 +112,7 @@ function RegisterForm({ state, setState }) {
           placeholder="Enter your email"
           required
           onChange={handleChange("email")}
-          />
+        />
       </div>
       <div className="form-group">
         <input
@@ -114,7 +122,7 @@ function RegisterForm({ state, setState }) {
           placeholder="Enter your password"
           required
           onChange={handleChange("password")}
-          />
+        />
         <div className="form-group"></div>
         <div className="form-group">
           <button className="btn-outline-primary">Register</button>

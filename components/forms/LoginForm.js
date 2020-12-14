@@ -4,11 +4,17 @@
 // as props from login page
 
 import axios from "axios";
+import {useEffect} from "react";
 import Link from "next/Link";
-import { authenticate } from "../../helpers/auth";
+import { authenticate, isAuth } from "../../helpers/auth";
 import Router from "next/router";
 
 function LoginForm({ state, setState }) {
+
+    // Check to see whether we have user info in local storage
+    // on component mounting, if we have, redirect user to homepage
+    useEffect(() => {isAuth()&&Router.push("/")}, []);
+
   // Dynamic onChange handler
   // used by all inputs
   const handleChange = (name) => (e) => {
@@ -36,8 +42,9 @@ function LoginForm({ state, setState }) {
         }
       );
 
-      console.log("Response from login", response);
-      authenticate(response, () => Router.push("/"));
+      // console.log("Response from login", response);
+      // authenticate(response, () => Router.push("/"));
+      authenticate(response, () => isAuth() && isAuth().role === "admin"? Router.push("/admin"): Router.push("/user"));
     } catch (error) {
       console.log(error);
       setState({
