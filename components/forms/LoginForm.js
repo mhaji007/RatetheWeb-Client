@@ -35,7 +35,7 @@ function LoginForm({ state, setState }) {
     setState({ ...state, buttonText: "Logging in..." });
     try {
       const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_API}/Login`,
+        `${process.env.NEXT_PUBLIC_API}/login`,
         {
           email,
           password,

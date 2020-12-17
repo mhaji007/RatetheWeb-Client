@@ -3,7 +3,6 @@
 import cookie from "js-cookie";
 import Router from "next/router";
 
-
 // Set in cookie
 export const setCookie = (key, value) => {
   // Check if we are running in browser in next.js
@@ -28,10 +27,34 @@ export const removeCookie = (key, value) => {
 // will be useful when making request to server (to protected routes) with auth token
 // At that time cookie is grabbed from the browser cookie and sent back to server
 // in headers
-export const getCookie = (key) => {
-  if (process.browser) {
-    return cookie.get(key);
+export const getCookie = (key, req) => {
+  // This implementation only runs on browser
+  // if (process.browser) {
+  //   return cookie.get(key);
+  // }
+
+  return process.browser
+    ? getCookieFromBrowser(key)
+    : getCookieFromServer(key, req);
+};
+
+export const getCookieFromBrowser = (key) => {
+  return cookie.get(key);
+};
+
+export const getCookieFromServer = (key, req) => {
+  if (!req.headers.cookie) {
+    return undefined;
   }
+  let token = req.headers.cookie
+    .split(":")
+    .find((c) => c.trim().startsWith(`${key}=`));
+  if (!token) {
+    return undefined;
+  }
+  let tokenValue = token.split("=")[1];
+  console.log("getCookieFromServer", tokenValue);
+  return tokenValue;
 };
 
 // Set in local storage
@@ -81,5 +104,4 @@ export const logOut = () => {
   removeCookie("token");
   removeLocalStorage("user");
   Router.push("/login");
-
-}
+};

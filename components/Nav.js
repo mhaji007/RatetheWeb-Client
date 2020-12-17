@@ -45,7 +45,7 @@ const Nav = () => (
           </Link>
         </li>
       )}
-
+      {/* Only display logout if users are logged in */}
       {isAuth() && (
         <li className="nav-item ">
           <a className="nav-link text-white" onClick={logOut}>
