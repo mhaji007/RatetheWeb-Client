@@ -1,3 +1,8 @@
+// Component that determines the layout of all pages
+// Wraps navigation and any children passed to it
+// used in _app to all pages
+
+
 import React from 'react';
 import Nav from './Nav'
 import Router from 'next/router'

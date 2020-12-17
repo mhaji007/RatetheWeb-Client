@@ -1,6 +1,8 @@
 // Authentication helper methods for setting and removing cookies
 
 import cookie from "js-cookie";
+import Router from "next/router";
+
 
 // Set in cookie
 export const setCookie = (key, value) => {
@@ -74,3 +76,10 @@ export const isAuth = () => {
     }
   }
 };
+
+export const logOut = () => {
+  removeCookie("token");
+  removeLocalStorage("user");
+  Router.push("/login");
+
+}
