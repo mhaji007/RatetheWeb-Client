@@ -1,7 +1,5 @@
-import { useState, useEffect } from "react";
-import axios from "axios";
+import { useState } from "react";
 import { showSuccessMessage, showErrorMessage } from "../../../helpers/alerts";
-import Router from "next/router";
 import ForgotPasswordForm from "../../../components/forms/ForgotPasswordForm";
 
 import React from "react";
@@ -20,9 +18,8 @@ const ForgotPassword = () => {
   return (
     <>
     <div className="row">
-
       <div className="col-md-6 offset-md-3 text-center">
-        <h1>Password Recovery</h1>
+        <h1>Account Recovery</h1>
         {success && showSuccessMessage(success)}
         {error && showErrorMessage(error)}
         <ForgotPasswordForm state={state} setState={setState} />
