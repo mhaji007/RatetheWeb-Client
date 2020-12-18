@@ -1,3 +1,5 @@
-const Admin = () => <h1>Admin page</h1>;
+import withAdmin from "../withUser";
 
-export default Admin;
+const User = ({ user }) => <h1>{JSON.stringify(user)}</h1>;
+
+export default withAdmin(User);
