@@ -4,6 +4,7 @@ import { useState } from "react";
 import LoginForm from "../components/forms/LoginForm";
 import { showSuccessMessage, showErrorMessage } from "../helpers/alerts";
 import Router from "next/router";
+import Link from "next/Link";
 
 const Login = () => {
   // State for storing all user input fields
@@ -15,8 +16,6 @@ const Login = () => {
     buttonText: "Login",
   });
 
-
-
   const { success, error } = state;
 
   return (
@@ -26,8 +25,9 @@ const Login = () => {
         {success && showSuccessMessage(success)}
         {error && showErrorMessage(error)}
         <LoginForm state={state} setState={setState} />
-        <br />
-        {/* {JSON.stringify(state)} */}
+        <Link href="/auth/password/forgot">
+          <a className="text-danger float-right"> Forgot Password?</a>
+        </Link>
       </div>
     </>
   );
