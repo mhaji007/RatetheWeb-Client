@@ -38,7 +38,7 @@ function ForgotPasswordForm({ state, setState }) {
     }
   };
 
-  const { email, password, error, success, buttonText } = state;
+  const { email, buttonText } = state;
 
   return (
     <form onSubmit={handleSubmit}>
@@ -53,7 +53,7 @@ function ForgotPasswordForm({ state, setState }) {
         />
       </div>
       <div className="form-group">
-        <button className="btn-outline-primary">Forgot Password</button>
+        <button className="btn-outline-primary">{buttonText}</button>
       </div>
     </form>
   );

@@ -27,7 +27,7 @@ function LoginForm({ state, setState }) {
     });
   };
   // Destructure state variables
-  const { email, password, error, success, buttonText } = state;
+  const { email, password, buttonText, error, success } = state;
 
   // Using axios with async await
   const handleSubmit = async (e) => {
@@ -78,7 +78,7 @@ function LoginForm({ state, setState }) {
         />
         <div className="form-group"></div>
         <div className="form-group">
-          <button className="btn-outline-primary">Login</button>
+          <button className="btn-outline-primary">{buttonText}</button>
         </div>
       </div>
     </form>

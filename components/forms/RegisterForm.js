@@ -26,7 +26,7 @@ function RegisterForm({ state, setState }) {
     });
   };
   // Destructure state variables
-  const { name, email, password, error, success, buttonText } = state;
+  const { name, email, password, buttonText, error, success } = state;
 
   // Using axios with async await
   const handleSubmit = async (e) => {
@@ -125,7 +125,7 @@ function RegisterForm({ state, setState }) {
         />
         <div className="form-group"></div>
         <div className="form-group">
-          <button className="btn-outline-primary">Register</button>
+          <button className="btn-outline-primary">{buttonText}</button>
         </div>
       </div>
     </form>

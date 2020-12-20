@@ -8,7 +8,7 @@ import axios from "axios";
 
 
 function ResetPasswordForm({ state, setState }) {
-  // Success and error are set to empty on chanhe
+  // Success and error are set to empty on change
   // to remove the success/error message displayed from prior input
   const handleChange = (e) => {
     setState({ ...state, newPassword: e.target.value, success: "", error: "" });
@@ -41,7 +41,7 @@ function ResetPasswordForm({ state, setState }) {
     }
   };
 
-  const { name, newPassword, token, error, success, buttonText } = state;
+  const { newPassword, token, buttonText, error, success } = state;
 
   return (
     <form onSubmit={handleSubmit}>
@@ -56,7 +56,7 @@ function ResetPasswordForm({ state, setState }) {
         />
       </div>
       <div className="form-group">
-        <button className="btn-outline-primary">Reset Password</button>
+        <button className="btn-outline-primary">{buttonText}</button>
       </div>
     </form>
   );
