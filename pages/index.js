@@ -6,7 +6,7 @@ const Home = ({ categories }) => {
   const listCategories = () =>
     categories.map((c, i) => (
       <Link href="/">
-        <a className={`col-md-4 ${styles.item}`} >
+        <a className={`col-md-3 ${styles.item}`} >
           <div>
             <div className="row">
               <div className="col-md-4">

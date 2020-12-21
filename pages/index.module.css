@@ -12,7 +12,7 @@
 .item {
   min-height: 75px;
   padding: 15px;
-
+  display: flex;
   align-items: center;
   justify-content: flex-start;
 
@@ -22,9 +22,16 @@
   border-radius: 6px;
   box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.1);
   transition: 0.1s linear all;
-  /* width: 32%; */
-   /* margin-left: 0.5%;
-  margin-right: 0.5%; */
+   min-width: 32%;
+  margin-left: 0.5%;
+   margin-right: 0.5%;
+
+}
+
+.item:hover,
+.item:focus {
+  box-shadow: 0 0.5em 0.5em -0.4em  rgba(0, 0, 0, 0.1);
+  transform: translateY(-0.25em);
 }
 
 .thumbnail {
