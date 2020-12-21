@@ -1,18 +1,18 @@
 // Page responsible for displaying
 // CreateCategoryForm
 
-// used to make user and token available to the page
+
 import withAdmin from "../../withAdmin";
 import { useState } from "react";
 import CreateCategoryForm from "../../../components/forms/CreateCategoryForm";
 import { showSuccessMessage, showErrorMessage } from "../../../helpers/alerts";
+
 
 // user and token are retrieved through
 // the help of withAdmin
 function Create({ user, token }) {
   const [state, setState] = useState({
     name: "",
-    content: "",
     error: "",
     success: "",
 
@@ -33,6 +33,12 @@ function Create({ user, token }) {
     // imageUploadText: "Upload image",
   });
 
+  // For when rich context editor is used for content
+  // react quill requires the whole event object be passed in
+  // not event.target therefore it is best to set up
+  // a separate state and onChange handler for content
+  const[content, setContent] = useState("")
+
   // needed when uploading base64 data
   const [imageUploadButtonName, setImageUploadButtonName] = useState(
     "Upload Image"
@@ -51,6 +57,8 @@ function Create({ user, token }) {
           <CreateCategoryForm
             state={state}
             setState={setState}
+            content={content}
+            setContent={setContent}
             token={token}
             imageUploadButtonName={imageUploadButtonName}
             setImageUploadButtonName={setImageUploadButtonName}

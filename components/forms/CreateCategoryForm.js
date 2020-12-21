@@ -1,10 +1,19 @@
-import React from "react";
+import dynamic from "next/dynamic";
+// used to make user and token available to the page
+
+// We need to use dynamic since React quill
+// run in client-side mode by default
+const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 import axios from "axios";
+import "react-quill/dist/quill.bubble.css";
+
 import Resizer from "react-image-file-resizer";
 
 function CreateCategoryForm({
   state,
   setState,
+  content,
+  setContent,
   token,
   imageUploadButtonName,
   setImageUploadButtonName,
@@ -39,6 +48,12 @@ function CreateCategoryForm({
       success: "",
     });
     //=========================================================================================== //
+  };
+
+  const handleContent = (e) => {
+    console.log(e);
+    setContent(e);
+    setState({ ...state, success: "", error: "" });
   };
 
   //================== Needed when uploading image via base64 data ============================ //
@@ -99,11 +114,15 @@ function CreateCategoryForm({
       );
       console.log("Category create response", response);
       // Needed when uploading image via base64
+      // Revert image upload button to default text
       setImageUploadButtonName("Upload Image");
+
+      // Clear rich text editor
+      setContent("")
+
       setState({
         ...state,
         name: "",
-        content: "",
         formData: "",
         buttonText: "Created",
 
@@ -124,7 +143,6 @@ function CreateCategoryForm({
 
   const {
     name,
-    content,
     error,
     success,
     formData,
@@ -147,12 +165,21 @@ function CreateCategoryForm({
       </div>
       <div className="form-group">
         <label className="text-muted">Content</label>
-        <textarea
+        {/* <textarea
           onChange={handleChange("content")}
           value={content}
           type="text"
           className="form-control"
           required
+        /> */}
+
+        <ReactQuill
+          value={content}
+          onChange={handleContent}
+          theme="bubble"
+          placeholder="Enter content..."
+          className="pb-5 mb-5"
+          style={{ border: "1px solid #666" }}
         />
       </div>
       <div className="form-group">
