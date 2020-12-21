@@ -30,7 +30,7 @@ const Home = ({ categories }) => {
       <div className="row">
         <div className="col-md-12">
           <h1 className="font-weight-bold text-center">
-            Browse Websites for inspiration
+            Browse Inspiring Sites on the Web
           </h1>
         </div>
       </div>

@@ -1,24 +1,74 @@
 import React from "react";
 import axios from "axios";
+import Resizer from "react-image-file-resizer";
 
-function CreateCategoryForm({ state, setState, token }) {
+function CreateCategoryForm({
+  state,
+  setState,
+  token,
+  imageUploadButtonName,
+  setImageUploadButtonName,
+}) {
   const handleChange = (name) => (e) => {
-    const value = name === "image" ? e.target.files[0] : e.target.value;
-    const imageName =
-      name === "image" ? event.target.files[0].name : "Upload image";
+    //================== Needed when uploading image via formData ============================ //
+
+    // const value = name === "image" ? e.target.files[0] : e.target.value;
+    // const imageName =
+    //   name === "image" ? event.target.files[0].name : "Upload image";
     // Set dynamic name and value in formData
     // have the formData ready to send to backend
     // on submit
-    formData.set(name, value);
+    // formData.set(name, value);
 
+    // the value then is set in setState via [name]: value instead of e.target.value
+    //    setState({
+    //     ...state,
+    //     [name]: vlaue,
+    //     error: "",
+    //     success: "",
+    //     imageUploadText: imageName,
+    //   });
+    // };
+    // ======================================================================================= //
+
+    //================== Needed when uploading image via base64 data ============================ //
     setState({
       ...state,
-      [name]: value,
+      [name]: e.target.value,
       error: "",
       success: "",
-      imageUploadText: imageName,
     });
+    //=========================================================================================== //
   };
+
+  //================== Needed when uploading image via base64 data ============================ //
+
+  // resize image client side
+  const handleImage = (event) => {
+    let fileInput = false;
+    if (event.target.files[0]) {
+      fileInput = true;
+    }
+    setImageUploadButtonName(event.target.files[0].name);
+    if (fileInput) {
+      Resizer.imageFileResizer(
+        event.target.files[0],
+        //size
+        300,
+        300,
+        "JPEG",
+        //quality
+        100,
+        0,
+        (uri) => {
+          // console.log(uri);
+          setState({ ...state, image: uri, success: "", error: "" });
+        },
+        "base64"
+      );
+    }
+  };
+  //============================================================================================= //
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -34,7 +84,13 @@ function CreateCategoryForm({ state, setState, token }) {
     try {
       const response = await axios.post(
         `${process.env.NEXT_PUBLIC_API}/category`,
-        formData,
+
+        // Needed when uploading image via formData
+        // formData,
+
+        // Needed when uploading image via base64
+        { name, content, image },
+
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -42,26 +98,40 @@ function CreateCategoryForm({ state, setState, token }) {
         }
       );
       console.log("Category create response", response);
+      // Needed when uploading image via base64
+      setImageUploadButtonName("Upload Image");
       setState({
         ...state,
         name: "",
+        content: "",
         formData: "",
         buttonText: "Created",
-        imageUploadText: "Upload image",
-        success:`Category ${response.data.name} successfully created`
+
+        // Needed when uploading image via formData
+        // imageUploadText: "Upload image",
+
+        success: `Category ${response.data.name} successfully created`,
       });
     } catch (error) {
       console.log("Category create error", error);
       setState({
         ...state,
-        name: "",
         buttonText: "Create",
         error: error.response.data.error,
       });
     }
   };
 
-  const { name, content, error, success, formData, buttonText, imageUploadText } = state;
+  const {
+    name,
+    content,
+    error,
+    success,
+    formData,
+    buttonText,
+    imageUploadText,
+    image,
+  } = state;
 
   return (
     <form onSubmit={handleSubmit}>
@@ -87,12 +157,21 @@ function CreateCategoryForm({ state, setState, token }) {
       </div>
       <div className="form-group">
         <label className="btn btn-outline-secondary">
-          {imageUploadText}
+          {/* Needed when uploading image via fileData */}
+          {/* {imageUploadText} */}
+
+          {/* Needed when uploading base64 image */}
+          {imageUploadButtonName}
+
           {/* No value prop here since
           value is used to calculate form data
           for content and name only */}
           <input
-            onChange={handleChange("image")}
+            // Needed when uploading image via formData
+            // onChange={handleChange("image")}
+
+            // Needed when uploading image via base64 data
+            onChange={handleImage}
             type="file"
             accept="image/*"
             className="form-control"
