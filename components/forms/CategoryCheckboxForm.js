@@ -46,7 +46,7 @@ function CategoryCheckboxForm({state, setState}) {
         (c, i) => (
         <li className="list-unstyled" key={c._id}>
           <input type="checkbox" onChange={handleToggle(c._id)} />
-          <label className="form-check-label">{c.name}</label>
+          <label className="form-check-label ml-2">{c.name}</label>
            </li>
       )
       )

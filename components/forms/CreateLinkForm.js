@@ -53,6 +53,7 @@ function CreateLinkForm({ state, setState }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setState({ ...state, buttonText: "Logging in..." });
+    console.table({title, url, categories, type, medium})
     try {
 
     } catch (error) {
