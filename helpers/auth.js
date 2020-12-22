@@ -87,7 +87,7 @@ export const authenticate = (response, next) => {
 export const isAuth = () => {
   if (process.browser) {
     // Make sure token exists
-    // do not only on local storage information since
+    // do not rely only on local storage information since
     // there is more security risk to it
     const cookieChecked = getCookie("token");
     if (cookieChecked) {

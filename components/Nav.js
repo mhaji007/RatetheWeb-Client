@@ -7,11 +7,19 @@ import { isAuth, logOut } from "../helpers/auth";
 
 const Nav = () => (
   <ul className="nav bg-dark justify-content-between">
+    <div className="d-flex">
+
     <li className="nav-item ">
       <Link href="/">
         <a className="nav-link text-white">Home</a>
       </Link>
     </li>
+    <li className="nav-item ">
+      <Link href="/user/link/create">
+        <a className="btn bg-primary btn-outline-primary text-white">Submit a Link</a>
+      </Link>
+    </li>
+    </div>
     <div className="d-flex ">
       {/* If not logged in display login and register links */}
       {!isAuth() && (
