@@ -1,60 +1,65 @@
-// Component for rendering login form
-// used by login page
+// Component for rendering create link form
+// used by create page in pages/user/link/create
 // state and setstate are passed down
-// as props from login page
+// as props from create page
+
+// Users can view this page without
+// the need of being logged-in
+// however they are reqiired to log-in
+// to actually submit the links
+
+// We can use withUser HOC to
+// hide the page and only allow logged-in user to
+// view the page
 
 import axios from "axios";
 import { useEffect } from "react";
 import Link from "next/Link";
-import { authenticate, isAuth } from "../../helpers/auth";
 import Router from "next/router";
 
-function LoginForm({ state, setState }) {
-  // Check to see whether we have user info in local storage
-  // on component mounting, if we have, redirect user to homepage
-  useEffect(() => {
-    isAuth() && Router.push("/");
-  }, []);
-
-  // Dynamic onChange handler
-  // used by all inputs
+function CreateLinkForm({ state, setState }) {
   const handleChange = (name) => (e) => {
     setState({
       ...state,
       [name]: e.target.value,
       error: "",
       success: "",
-      buttonText: "Login",
+      buttonText: "Submit",
     });
   };
   // Destructure state variables
-  const { email, password, buttonText, error, success } = state;
+   const {
+     title,
+     url,
+     categories,
+     loadedCategories,
+     buttonText,
+     success,
+     error,
+     type,
+     medium,
+   } = state;
+
+
+   const handletitleChange = (e) => {
+    setState({...state, title: e.target.value, error:"", success:""})
+   }
+
+   const handleURLChange = (e) => {
+    setState({...state, url: e.target.value, error:"", success:""})
+   }
 
   // Using axios with async await
   const handleSubmit = async (e) => {
     e.preventDefault();
     setState({ ...state, buttonText: "Logging in..." });
     try {
-      const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_API}/login`,
-        {
-          email,
-          password,
-        }
-      );
 
-      // console.log("Response from login", response);
-      // authenticate(response, () => Router.push("/"));
-      authenticate(response, () =>
-        isAuth() && isAuth().role === "admin"
-          ? Router.push("/admin")
-          : Router.push("/user")
-      );
     } catch (error) {
       console.log(error);
       setState({
         ...state,
-        buttonText: "Login",
+        buttonText: "Submit",
         error: error.response.data.error,
       });
     }
@@ -63,31 +68,33 @@ function LoginForm({ state, setState }) {
   return (
     <form onSubmit={handleSubmit}>
       <div className="form-group">
+        <label className="text-muted">Title</label>
         <input
-          type="email"
-          value={email}
+          type="text"
+          value={title}
           className="form-control"
-          placeholder="Enter your email"
+          placeholder="Enter a title"
           required
-          onChange={handleChange("email")}
+          onChange={handletitleChange}
         />
       </div>
       <div className="form-group">
+        <label className="text-muted">URL</label>
         <input
-          type="password"
-          value={password}
+          type="url"
+          value={url}
           className="form-control"
-          placeholder="Enter your password"
+          placeholder="Enter a link"
           required
-          onChange={handleChange("password")}
+          onChange={handleURLChange}
         />
-        <div className="form-group"></div>
-        <div className="form-group">
-          <button className="btn-outline-primary">{buttonText}</button>
-        </div>
+      </div>
+
+      <div className="form-group">
+        <button className="btn btn-outline-primary">{buttonText}</button>
       </div>
     </form>
   );
 }
 
-export default LoginForm;
+export default CreateLinkForm;
