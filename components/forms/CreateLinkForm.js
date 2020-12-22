@@ -3,21 +3,14 @@
 // state and setstate are passed down
 // as props from create page
 
-// Users can view this page without
-// the need of being logged-in
-// however they are reqiired to log-in
-// to actually submit the links
-
-// We can use withUser HOC to
-// hide the page and only allow logged-in user to
-// view the page
 
 import axios from "axios";
 import { useEffect } from "react";
 import Link from "next/Link";
 import Router from "next/router";
+import { isAuth } from "../../helpers/auth";
 
-function CreateLinkForm({ state, setState }) {
+function CreateLinkForm({ state, setState, token }) {
   const handleChange = (name) => (e) => {
     setState({
       ...state,
@@ -28,36 +21,61 @@ function CreateLinkForm({ state, setState }) {
     });
   };
   // Destructure state variables
-   const {
-     title,
-     url,
-     categories,
-     loadedCategories,
-     buttonText,
-     success,
-     error,
-     type,
-     medium,
-   } = state;
+  const {
+    title,
+    url,
+    categories,
+    loadedCategories,
+    buttonText,
+    success,
+    error,
+    type,
+    medium,
+  } = state;
 
+  const handletitleChange = (e) => {
+    setState({ ...state, title: e.target.value, error: "", success: "" });
+  };
 
-   const handletitleChange = (e) => {
-    setState({...state, title: e.target.value, error:"", success:""})
-   }
-
-   const handleURLChange = (e) => {
-    setState({...state, url: e.target.value, error:"", success:""})
-   }
+  const handleURLChange = (e) => {
+    setState({ ...state, url: e.target.value, error: "", success: "" });
+  };
 
   // Using axios with async await
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setState({ ...state, buttonText: "Logging in..." });
-    console.table({title, url, categories, type, medium})
+    setState({ ...state, buttonText: "Submitting..." });
+    // console.table({title, url, categories, type, medium})
     try {
-
+      const response = await axios.post(
+        `${process.env.NEXT_PUBLIC_API}/link`,
+        {
+          title,
+          url,
+          categories,
+          type,
+          medium,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      setState({
+        ...state,
+        title: "",
+        url: "",
+        success: "Your link was successfully submitted",
+        error: "",
+        loadedCategories:[],
+        categories:[],
+        medium:"",
+        type:"",
+        buttonText:"Submitted"
+      });
     } catch (error) {
-      console.log(error);
+      console.log("Link submission error", error);
       setState({
         ...state,
         buttonText: "Submit",
@@ -65,8 +83,6 @@ function CreateLinkForm({ state, setState }) {
       });
     }
   };
-
-
 
   return (
     <form onSubmit={handleSubmit}>
@@ -77,7 +93,11 @@ function CreateLinkForm({ state, setState }) {
           value={title}
           className="form-control"
           placeholder="Enter a title"
-          required
+          // If required is set
+          // and we also have our own validation
+          // message, the default form html validation message
+          // take precedence
+          // required
           onChange={handletitleChange}
         />
       </div>
@@ -88,13 +108,19 @@ function CreateLinkForm({ state, setState }) {
           value={url}
           className="form-control"
           placeholder="Enter a link"
-          required
+          // If required is set
+          // and we also have our own validation
+          // message, the default form html validation message
+          // take precedence
+          // required
           onChange={handleURLChange}
         />
       </div>
 
       <div className="form-group">
-        <button className="btn btn-outline-primary">{buttonText}</button>
+        <button disabled={!token} className="btn btn-outline-primary">
+          {isAuth() || token ? `${buttonText}` : "Log in to post"}
+        </button>
       </div>
     </form>
   );

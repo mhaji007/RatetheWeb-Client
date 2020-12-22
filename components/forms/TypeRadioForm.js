@@ -26,7 +26,7 @@ function TypeRadioForm({ state, setState }) {
           if type has a value of free, checkbox is checked */}
           <input
             type="radio"
-            onClick={handleTypeClick}
+            onChange={handleTypeClick}
             checked={type === "free"}
             value="free"
             className="form-check-input"
@@ -38,7 +38,7 @@ function TypeRadioForm({ state, setState }) {
         <label className="form-check-label ml-2">
           <input
             type="radio"
-            onClick={handleTypeClick}
+            onChange={handleTypeClick}
             checked={type === "paid"}
             value="paid"
             className="form-check-input"

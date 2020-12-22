@@ -27,6 +27,9 @@ export const removeCookie = (key, value) => {
 // will be useful when making request to server (to protected routes) with auth token
 // At that time cookie is grabbed from the browser cookie and sent back to server
 // in headers
+// request has to be passed as ana argument
+// for this function to run both on server
+// and client.
 export const getCookie = (key, req) => {
   // This implementation only runs on browser
   // if (process.browser) {
@@ -42,6 +45,7 @@ export const getCookieFromBrowser = (key) => {
   return cookie.get(key);
 };
 
+// Takes in req to check cookie availablity
 export const getCookieFromServer = (key, req) => {
   if (!req.headers.cookie) {
     return undefined;

@@ -25,7 +25,7 @@ function MediumRadioForm({state, setState}) {
           if type has a value of free, checkbox is checked */}
            <input
              type="radio"
-             onClick={handleMediumClick}
+             onChange={handleMediumClick}
              checked={medium === "video"}
              value="video"
              className="form-check-input"
@@ -37,7 +37,7 @@ function MediumRadioForm({state, setState}) {
          <label className="form-check-label ml-2">
            <input
              type="radio"
-             onClick={handleMediumClick}
+             onChange={handleMediumClick}
              checked={medium === "article"}
              value="article"
              className="form-check-input"
