@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import CreateLinkForm from "../../../components/forms/CreateLinkForm";
 import { showSuccessMessage, showErrorMessage } from "../../../helpers/alerts";
+import CategoryCheckboxForm from "../../../components/forms/CategoryCheckboxForm"
 
 function create() {
   // State needed for creating the new link
@@ -48,23 +49,28 @@ function create() {
     setState({ ...state, loadedCategories: response.data });
   };
 
+
   return (
     <>
       <div className="row">
-        <div className="col-md-6 offset-md-3 text-center ">
-          <h1>Submit Link/URL</h1>
+        <div className="col-md-6 offset-md-3">
         </div>
       </div>
       <div className="row">
-        <div className="col-md-4"></div>
-        <div className="col-md-8 offset-md-2 text-center">
+        <div className="col-md-4 my-auto pt-3">
+            <h3 className="text-center">Categories</h3>
+          <div className="form-control">
+            <ul style={{maxHeight:"130px", overflowY:"scroll"}}><CategoryCheckboxForm state={state} setState={setState}/></ul>
+          </div>
+        </div>
+        <div className="col-md-8 text-center">
+          <h1>Submit Link/URL</h1>
           {success && showSuccessMessage(success)}
           {error && showErrorMessage(error)}
           <CreateLinkForm state={state} setState={setState} />
         </div>
       </div>
-      {JSON.stringify(title)}
-      {JSON.stringify(url)}
+
     </>
   );
 }

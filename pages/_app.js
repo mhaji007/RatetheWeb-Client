@@ -2,7 +2,8 @@ import Head from "next/head";
 import Layout from "../components/Layout";
 import "antd/dist/antd.css";
 import "nprogress/nprogress.css";
-import "../components/Nav.css";
+import "./global.css";
+
 
 function MyApp({ Component, pageProps }) {
   return (
