@@ -37,9 +37,7 @@ const Nav = () => (
       </li>
       <li className="nav-item my-auto">
         <Link href="/user/link/create">
-          <a
-            className={styles.submit}
-          >
+          <a className={styles.submit}>
             <strong className="pr-2">+</strong>
             Submit a Link
           </a>
@@ -66,14 +64,14 @@ const Nav = () => (
       {/* If logged in redirect based on role */}
 
       {isAuth() && isAuth().role === "admin" && (
-        <li className="nav-item ml-auto pt-2 ">
+        <li className="nav-item ml-auto ">
           <Link href="/admin">
             <a className="nav-link text-white">{isAuth().name}</a>
           </Link>
         </li>
       )}
       {isAuth() && isAuth().role === "subscriber" && (
-        <li className="nav-item ml-auto pt-2 ">
+        <li className="nav-item ml-auto ">
           <Link href="/user">
             <a className="nav-link text-white">{isAuth().name}</a>
           </Link>
@@ -81,7 +79,7 @@ const Nav = () => (
       )}
       {/* Only display logout if users are logged in */}
       {isAuth() && (
-        <li className="nav-item pt-2">
+        <li className="nav-item ">
           <a className="nav-link text-white" onClick={logOut}>
             LOGOUT
           </a>
