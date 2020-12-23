@@ -1,3 +1,7 @@
+// Page responsible for displaying all
+// categories fetched from server
+// categoriers are fetched serverside
+// and are made avaialbe on page visit
 import axios from "axios";
 import styles from "./index.module.css";
 import Link from "next/Link";
@@ -5,6 +9,8 @@ import Link from "next/Link";
 const Home = ({ categories }) => {
   const listCategories = () =>
     categories.map((c, i) => (
+      // On click users are directed
+      // to a page with category slug in the url
       <Link href={`/links/${c.slug}`}>
         <a className={`col-md-3 ${styles.item}`} >
           <div>
