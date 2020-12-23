@@ -44,7 +44,7 @@ const Nav = () => (
         </Link>
       </li>
     </div>
-    <div className="d-flex ">
+    <div className="d-flex my-auto ">
       {/* If not logged in display login and register links */}
       {!isAuth() && (
         <>
