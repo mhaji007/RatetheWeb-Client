@@ -19,6 +19,11 @@ const User = ({user}) => {
                 <a className="nav-link"> Create Category</a>
               </Link>
             </li>
+            <li className="nav-item">
+              <Link href="/admin/category/list">
+                <a className="nav-link"> All Categories</a>
+              </Link>
+            </li>
           </ul>
         </div>
         <div className="col-md-8"></div>
