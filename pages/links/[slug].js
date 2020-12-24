@@ -40,7 +40,10 @@ function Links({ query, category, links, totalLinks, linksLimit, linkSkip }) {
 
   const listOfLinks = () =>
     allLinks.map((l, i) => (
-      <div className="row alert border bg-light alert-secondary p-2 rounded-1">
+      <div
+        className="row alert border bg-light alert-secondary p-2 rounded-1"
+        key={i}
+      >
         <div className="col-md-8" onClick={(e) => handleClick(l._id)}>
           {/* a instead of Link since this link
            might reference an external resourcce */}
@@ -67,7 +70,10 @@ function Links({ query, category, links, totalLinks, linksLimit, linkSkip }) {
           </span>
 
           {l.categories.map((c, i) => (
-            <span className="badge badge-pill badge-primary bg-secondary ml-1 ">
+            <span
+              className="badge badge-pill badge-primary bg-secondary ml-1 "
+              key={i}
+            >
               {c.name}
             </span>
           ))}
@@ -167,7 +173,7 @@ function Links({ query, category, links, totalLinks, linksLimit, linkSkip }) {
             hasMore={size > 0 && size >= limit}
             loader={
               <div className="loader" key={0}>
-                <img src="/loader.gif" alt="loader"/>
+                <img src="/loader.gif" alt="loader" />
               </div>
             }
           ></InfiniteScroll>
