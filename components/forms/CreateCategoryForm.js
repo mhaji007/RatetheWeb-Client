@@ -1,3 +1,6 @@
+// Component for create category form
+// used by create in pages/admin/category/create
+
 import dynamic from "next/dynamic";
 // used to make user and token available to the page
 
