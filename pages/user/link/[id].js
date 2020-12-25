@@ -1,27 +1,11 @@
-// Parent component to
-// CreateLinkForm
-// MediumRadioForm
-// TypeRadioForm
-// State is passed down to all
-// the above components
-// each component handles
-// onclicks separately and updates
-// the state. All the updated values
-// are then submitted via handleSubmit in
-// CreateLinkForm
-
-// Users can view this page without
-// the need of being logged-in
-// however they are reqiired to log-in
-// to submit the links
-
-// withUser HOC can be used to restrict access and
-// hide the page and only allow logged-in user to
-// view the page
+// On naming the files:
+// For pages that are to be displayed to user ==> slug
+// For pages that are meant for update ==> id
 
 import { useEffect, useState } from "react";
 import axios from "axios";
-import CreateLinkForm from "../../../components/forms/CreateLinkForm";
+import withUser from "../../withUser";
+import UpdateLinkForm from "../../../components/forms/UpdateLinkForm";
 import { showSuccessMessage, showErrorMessage } from "../../../helpers/alerts";
 import CategoryCheckboxForm from "../../../components/forms/CategoryCheckboxForm";
 import TypeRadioForm from "../../../components/forms/TypeRadioForm";
@@ -29,17 +13,17 @@ import MediumRadioForm from "../../../components/forms/MediumRadioForm";
 
 // isAuth is used for conditionally disabling the submit button
 // to allow link submission by authenticated users only.
-// If no authenticated user (no token) is found, disable the button
+// If no authenticated user (no token) is found disable the button
 import { getCookie, isAuth } from "../../../helpers/auth";
 
-function Create({token}) {
+function Update({ oldLink, token }) {
   // State needed for creating the new link
   const [state, setState] = useState({
-    title: "",
-    url: "",
+    title: oldLink.title,
+    url: oldLink.url,
     // categories user picks
     // for creating a new link
-    categories: [],
+    categories: oldLink.categories,
     // Array of categories
     // we have in application
     // displayed in the checkbox
@@ -47,8 +31,8 @@ function Create({token}) {
     buttonText: "Submit",
     success: "",
     error: "",
-    type: "",
-    medium: "",
+    type: oldLink.type,
+    medium: oldLink.medium,
   });
 
   const {
@@ -80,7 +64,6 @@ function Create({token}) {
 
   return (
     <>
-
       <div className="row">
         <div className="col-md-4 my-auto">
           {/* Display categories */}
@@ -102,10 +85,10 @@ function Create({token}) {
           </div>
         </div>
         <div className="col-md-8 text-center">
-          <h1>Submit Link</h1>
+          <h1>Update Link</h1>
           {success && showSuccessMessage(success)}
           {error && showErrorMessage(error)}
-          <CreateLinkForm state={state} setState={setState} token={token} />
+          <UpdateLinkForm state={state} setState={setState} token={token} oldLink={oldLink} />
         </div>
         {/* {JSON.stringify(type)}
         {JSON.stringify(medium)} */}
@@ -114,10 +97,9 @@ function Create({token}) {
   );
 }
 // req is avilable on context
-Create.getInitialProps = ({req}) =>{
-  const token = getCookie("token", req);
-  return {token}
-}
+Update.getInitialProps = async ({ req, token, query }) => {
+  const response = await axios.get(`${process.env.NEXT_PUBLIC_API}/link/${query.id}`);
+  return {oldLink: response.data, token}
+};
 
-
-export default Create;
+export default withUser(Update);

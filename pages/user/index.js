@@ -12,7 +12,7 @@ const User = ({ user, userLinks, token }) => {
  const confirmDelete = (e, id) => {
    e.preventDefault();
    // console.log('delete > ', slug);
-   let answer = window.confirm("Are you sure you want to delete?");
+   let answer = window.confirm("Are you sure you want to delete this link?");
    if (answer) {
      handleDelete(id);
    }
@@ -73,7 +73,10 @@ const User = ({ user, userLinks, token }) => {
 
             {l.clicks ? l.clicks: 0} clicks
           </span>
-          <Link href={`/user/link/${l.slug}`}>
+          {/* l._id is used instead of slug because
+          we need the id to make a request to server and prepopulate
+          the form fields with the current values */}
+          <Link href={`/user/link/${l._id}`}>
             <span className="badge border border-info text-info float-right ml-2 ">Update</span>
           </Link>
 

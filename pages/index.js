@@ -37,7 +37,7 @@ const Home = ({ categories }) => {
       <div className="row">
         <div className="col-md-12">
           <h1 className="font-weight-bold text-center">
-            Browse best learning contents on the web
+            Browse the best learning content on the web
           </h1>
         </div>
       </div>

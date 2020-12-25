@@ -45,7 +45,13 @@ function CategoryCheckboxForm({state, setState}) {
       loadedCategories.map(
         (c, i) => (
         <li className="list-unstyled" key={c._id}>
-          <input type="checkbox" onChange={handleToggle(c._id)} />
+          {/* Regarding the check property:
+          This is useful for when CategoryCheckboxForm is reused in
+          user/link/[id] as part of prepopulating the old data in link update process.
+          What it does it it loops through the whole loadedCategories from server and check
+          if in a category array selected by the user, there is a category that has the same
+          id of any loadedCategories is found. If true, set that category to checked  */}
+          <input type="checkbox" onChange={handleToggle(c._id)} checked={categories.includes(c._id)}/>
           <label className="form-check-label ml-2">{c.name}</label>
            </li>
       )
