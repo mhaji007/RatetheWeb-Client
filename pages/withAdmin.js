@@ -1,3 +1,7 @@
+// Used to wrap pages we want to restrict access to only logged in user
+// with role of admin (admin protected route)
+// Used for serverside authentication.
+
 import axios from "axios";
 import { getCookie } from "../helpers/auth";
 
@@ -6,6 +10,7 @@ const withAdmin = (Page) => {
   WithAdminUser.getInitialProps = async (context) => {
     const token = getCookie("token", context.req);
     let user = null;
+     let userLinks = [];
 
     if (token) {
       try {
@@ -19,6 +24,7 @@ const withAdmin = (Page) => {
           }
         );
         user = response.data;
+        userLinks = response.data.links
       } catch (error) {
         // console.log(error);
         if (error.response.status === 401) {
@@ -40,6 +46,7 @@ const withAdmin = (Page) => {
         ...(Page.getInitialProps ? await Page.getInitialProps(context) : {}),
         user,
         token,
+        userLinks
       };
     }
   };

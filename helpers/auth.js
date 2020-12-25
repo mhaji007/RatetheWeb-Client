@@ -50,14 +50,21 @@ export const getCookieFromServer = (key, req) => {
   if (!req.headers.cookie) {
     return undefined;
   }
+  // req.headaers.cookie looks something like the following:
+  //G_AUTHUSER+H=0; token=eyJhci0iJUz1NiIsInc.......
+
   let token = req.headers.cookie
-    .split(":")
+    .split(";")
+    // Using example above the following first split returns
+    // [G_AUTHUSER+H=0, token=eyJhci0iJUz1NiIsInc....... ]
     .find((c) => c.trim().startsWith(`${key}=`));
   if (!token) {
     return undefined;
   }
+  // The following second split returns
+  // [token, eyJhci0iJUz1NiIsInc....... ]
   let tokenValue = token.split("=")[1];
-  // console.log("getCookieFromServer", tokenValue);
+  console.log("getCookieFromServer", tokenValue);
   return tokenValue;
 };
 
