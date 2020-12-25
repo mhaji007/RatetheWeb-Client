@@ -15,6 +15,9 @@ const User = ({user}) => {
         <div className="col-md-4">
           <ul className="nav flex-column">
             <li className="nav-item">
+              {/*CSS for React Quill sometimes does not load
+              until page is refreshed, in such situations we can
+              do away with enclosing Link tag use a tag instead */}
               <Link href="/admin/category/create">
                 <a className="nav-link"> Create Category</a>
               </Link>

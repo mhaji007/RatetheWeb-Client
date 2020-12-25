@@ -18,12 +18,13 @@ const Home = ({ categories }) => {
               <div className="col-md-4 my-auto">
                 <img
                   src={c.image && c.image.url}
-                  className={` float-left ${styles.thumbnail}`}
+                  className={styles.thumbnail}
                   alt={c.name}
                 />
               </div>
               <div className="col-md-8 my-auto">
-                <p className={` float-right ${styles.topic}`}>{c.name}</p>
+
+                <p className={styles.topic}>{c.name}</p>
               </div>
             </div>
           </div>
@@ -36,7 +37,7 @@ const Home = ({ categories }) => {
       <div className="row">
         <div className="col-md-12">
           <h1 className="font-weight-bold text-center">
-            Browse Inspiring Sites on the Web
+            Browse best learning contents on the web
           </h1>
         </div>
       </div>
