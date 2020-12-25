@@ -1,4 +1,7 @@
-// Authentication helper methods for setting and removing cookies
+// Authentication helper methods for setting and removing cookie
+// and localstorage
+
+// Token is stored in cookie and user information in local storage
 
 import cookie from "js-cookie";
 import Router from "next/router";
@@ -25,9 +28,9 @@ export const removeCookie = (key, value) => {
 
 // Get cookie such as stored token
 // will be useful when making request to server (to protected routes) with auth token
-// At that time cookie is grabbed from the browser cookie and sent back to server
+// At that time cookie is grabbed from the cookie and sent back to server
 // in headers
-// request has to be passed as ana argument
+// req has to be passed as an argument
 // for this function to run both on server
 // and client.
 export const getCookie = (key, req) => {
