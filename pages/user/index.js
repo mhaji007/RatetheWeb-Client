@@ -1,13 +1,39 @@
 // Page for displaying user dashboard
 
-import Layout from "../../components/Layout";
 import Link from "next/Link";
+import Router from "next/router";
 import axios from "axios";
 import moment from "moment";
-import { getCookie } from "../../helpers/auth";
+
 import withUser from "../withUser";
 
 const User = ({ user, userLinks, token }) => {
+
+ const confirmDelete = (e, id) => {
+   e.preventDefault();
+   // console.log('delete > ', slug);
+   let answer = window.confirm("Are you sure you want to delete?");
+   if (answer) {
+     handleDelete(id);
+   }
+ };
+
+ const handleDelete = async (id) => {
+   console.log("delete link", id);
+   try {
+     const response = await axios.delete(`${process.env.NEXT_PUBLIC_API}/link/${id}`, {
+       headers: {
+         Authorization: `Bearer ${token}`,
+       },
+     });
+     console.log("Link delete success ", response);
+     Router.replace("/user");
+   } catch (error) {
+     console.log("Link delete ", error);
+   }
+ };
+
+
   const listOfLinks = () =>
     userLinks.map((l, i) => (
       <div
@@ -23,8 +49,39 @@ const User = ({ user, userLinks, token }) => {
           </a>
         </div>
         <div className="col-md-4 pt-2">
-          <span className="float-right">
+          <span className="float-right text-nowrap">
             {moment(l.createdAt).fromNow()} by {l.postedBy.name}
+          </span>
+        </div>
+        <div className="col-md-12">
+          <span className="badge badge-pill badge-primary bg-secondary">
+            {l.type}
+          </span>
+          <span className="badge badge-pill badge-primary bg-secondary ml-1">
+            {l.medium}
+          </span>
+
+          {l.categories.map((c, i) => (
+            <span
+              className="badge badge-pill badge-primary bg-secondary ml-1 "
+              key={i}
+            >
+              {c.name}
+            </span>
+          ))}
+          <span className="badge badge-pill badge-primary bg-primary ml-1 float-right ">
+
+            {l.clicks ? l.clicks: 0} clicks
+          </span>
+          <Link href={`/user/link/${l.slug}`}>
+            <span className="badge border border-info text-info float-right ml-2 ">Update</span>
+          </Link>
+
+          <span
+            onClick={(e) => confirmDelete(e, l._id)}
+            className="badge border border-danger text-danger float-right"
+          >
+            Delete
           </span>
         </div>
       </div>
