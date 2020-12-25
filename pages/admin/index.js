@@ -1,6 +1,5 @@
 // Admin page
-// after log in users with role of admin
-// are directed to this page
+// Page for displaying admin dashboard
 
 import withAdmin from "../withUser";
 import Link from "next/Link";
@@ -17,7 +16,7 @@ const User = ({user}) => {
             <li className="nav-item">
               {/*CSS for React Quill sometimes does not load
               until page is refreshed, in such situations we can
-              do away with enclosing Link tag use a tag instead */}
+              do away with enclosing Link tags and use "a" tags instead */}
               <Link href="/admin/category/create">
                 <a className="nav-link"> Create Category</a>
               </Link>

@@ -4,13 +4,17 @@
 
 import axios from "axios";
 import { getCookie } from "../helpers/auth";
-
+// Wrapped page is sent in as an argument
 const withAdmin = (Page) => {
+  // WithAdminUser will render the page with props (user information on successs)
+  // made available through getInitialProps
   const WithAdminUser = (props) => <Page {...props} />;
+  // req is available on context
   WithAdminUser.getInitialProps = async (context) => {
+    // Retrieve cookie
     const token = getCookie("token", context.req);
     let user = null;
-     let userLinks = [];
+    let userLinks = [];
 
     if (token) {
       try {
@@ -24,7 +28,7 @@ const withAdmin = (Page) => {
           }
         );
         user = response.data;
-        userLinks = response.data.links
+        userLinks = response.data.links;
       } catch (error) {
         // console.log(error);
         if (error.response.status === 401) {
@@ -46,7 +50,7 @@ const withAdmin = (Page) => {
         ...(Page.getInitialProps ? await Page.getInitialProps(context) : {}),
         user,
         token,
-        userLinks
+        userLinks,
       };
     }
   };

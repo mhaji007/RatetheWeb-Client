@@ -31,11 +31,18 @@ export const removeCookie = (key, value) => {
 // for this function to run both on server
 // and client.
 export const getCookie = (key, req) => {
-  // This implementation only runs on browser
+  // The following implementation only runs on browser
+  // if a page is using getInitialProps and uses
+  // this getCookie implementation to retrieve the token, when page is refreshed
+  // cookie is lost since then we like first page load
+  // getInitialProps runs on server
+
   // if (process.browser) {
   //   return cookie.get(key);
   // }
 
+  // Check whether we are in browser or server
+  // call getCookie from browser or server accordingly
   return process.browser
     ? getCookieFromBrowser(key)
     : getCookieFromServer(key, req);
@@ -46,10 +53,13 @@ export const getCookieFromBrowser = (key) => {
 };
 
 // Takes in req to check cookie availablity
+// Cookie if available, is sent by the browser
+// in headers on each request
 export const getCookieFromServer = (key, req) => {
   if (!req.headers.cookie) {
     return undefined;
   }
+
   // req.headaers.cookie looks something like the following:
   //G_AUTHUSER+H=0; token=eyJhci0iJUz1NiIsInc.......
 
@@ -63,8 +73,10 @@ export const getCookieFromServer = (key, req) => {
   }
   // The following second split returns
   // [token, eyJhci0iJUz1NiIsInc....... ]
+  // [token, eyJhci0iJUz1NiIsInc....... ][1]
+  // returns  eyJhci0iJUz1NiIsInc.......
   let tokenValue = token.split("=")[1];
-  console.log("getCookieFromServer", tokenValue);
+  // console.log("getCookieFromServer", tokenValue);
   return tokenValue;
 };
 
@@ -112,7 +124,17 @@ export const isAuth = () => {
 };
 
 export const logOut = () => {
+  // Redirect user to login first
+  // and then remove credentials
+  // from local storage and cookie
+
+  // Note:
+  // For some reason if cookie and
+  // local storage content is removed
+  // before performing a Router.push to
+  // login, user is directed to register page
+  // instead
+  Router.push("/login");
   removeCookie("token");
   removeLocalStorage("user");
-  Router.push("/login");
 };

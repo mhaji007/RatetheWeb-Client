@@ -9,7 +9,7 @@ const withUser = (Page) => {
   // WithAuthUser will render the page with props (user information on successs)
   // made available through getInitialProps
   const WithAuthUser = (props) => <Page {...props} />;
-  // req is available on req
+  // req is available on context
   WithAuthUser.getInitialProps = async (context) => {
     // Retrieve cookie
     const token = getCookie("token", context.req);
