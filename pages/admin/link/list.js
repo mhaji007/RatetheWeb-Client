@@ -110,7 +110,8 @@ function Links({ links, totalLinks, linksLimit, linkSkip, token }) {
             </svg>{" "} */}
             {l.clicks ? l.clicks : 0} clicks
           </span>
-          <Link href={`/admin/link/${l._id}`}>
+          {/* Reuse user's update page onstead of making an exact page for admin (i.e., /admin/link/${l._id}) */}
+          <Link href={`/user/link/${l._id}`}>
             <span className="badge border border-info text-info float-right ml-2 ">
               Update
             </span>
@@ -205,7 +206,11 @@ function Links({ links, totalLinks, linksLimit, linkSkip, token }) {
 // query (slug) from context in getInitialProps server-side (context.query.slug)
 Links.getInitialProps = async ({ req }) => {
   let skip = 0;
-  let limit = 2;
+  // Note:
+  // if limit  is a really low number
+  // like 2 the last item is refetched twice
+  // on load more
+  let limit = 100;
 
   const token = getCookie("token", req);
 

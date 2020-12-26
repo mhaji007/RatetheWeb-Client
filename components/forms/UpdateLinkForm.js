@@ -42,11 +42,28 @@ function CreateLinkForm({ state, setState, token, oldLink }) {
   // Using axios with async await
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Use update link based on logged in user role
+    // this is done because the user link update page (pages/user/link/[id])
+    // is reused for admin update functionality (updating all user's links)
+    // instead of creating a separate admin update page and form components
+    // by modifying the request here we can reuse the update functionality
+    // security issues are addressed by the appropriate middlewares in place
+    // in respective routes on server
+
+    let dynamicUpdateUrl;
+    // Check role admin via local storage
+    if (isAuth() && isAuth().role === "admin") {
+      dynamicUpdateUrl = `${process.env.NEXT_PUBLIC_API}/link/admin/${oldLink._id}`;
+    } else {
+      dynamicUpdateUrl = `${process.env.NEXT_PUBLIC_API}/link/${oldLink._id}`;
+    }
+
     setState({ ...state, buttonText: "Updating..." });
     // console.table({title, url, categories, type, medium})
     try {
       const response = await axios.put(
-        `${process.env.NEXT_PUBLIC_API}/link/${oldLink._id}`,
+        dynamicUpdateUrl,
         {
           title,
           url,
