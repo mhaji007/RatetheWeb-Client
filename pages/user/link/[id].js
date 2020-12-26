@@ -1,3 +1,6 @@
+// Page responsible for displaying update link
+// form
+
 // On naming the files:
 // For pages that are to be displayed to user ==> slug
 // For pages that are meant for update ==> id

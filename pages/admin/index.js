@@ -23,7 +23,12 @@ const User = ({user}) => {
             </li>
             <li className="nav-item">
               <Link href="/admin/category/list">
-                <a className="nav-link"> All Categories</a>
+                <a className="nav-link"> Update/Delete Category</a>
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link href="/admin/link/list">
+                <a className="nav-link"> Update/Delete Link</a>
               </Link>
             </li>
           </ul>

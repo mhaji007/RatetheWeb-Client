@@ -1,3 +1,6 @@
+// Page responsible for dsiplaying all categories
+// along with the delete and edit options
+
 import withAdmin from "../../withAdmin";
 import axios from "axios";
 import { useState, useEffect } from "react";
@@ -37,7 +40,7 @@ function List({ user, token }) {
 
 
       const handleDelete = async (slug) => {
-      
+
         try {
           const response = await axios.delete(
             `${process.env.NEXT_PUBLIC_API}/category/${slug}`,

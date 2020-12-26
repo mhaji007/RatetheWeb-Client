@@ -1,6 +1,5 @@
 // Page responsible for displaying the register form
 
-
 import { useState } from "react";
 import RegisterForm from "../components/forms/RegisterForm";
 import {showSuccessMessage, showErrorMessage} from "../helpers/alerts"

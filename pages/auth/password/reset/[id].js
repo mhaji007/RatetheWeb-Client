@@ -1,3 +1,5 @@
+// Page for resetting user's password
+
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { showSuccessMessage, showErrorMessage } from "../../../../helpers/alerts";

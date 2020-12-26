@@ -1,8 +1,7 @@
-// Component for rendering create link form
-// used by create page in pages/user/link/create
-// state and setstate are passed down
-// as props from create page
-
+// Component for rendering update link form
+// used by [id] page in pages/user/link/[id]
+// state and setstate along with other props are passed down
+// from [id] page
 import axios from "axios";
 import { useEffect } from "react";
 import Link from "next/Link";
@@ -111,7 +110,7 @@ function CreateLinkForm({ state, setState, token, oldLink }) {
 
       <div className="form-group">
         <button disabled={!token} className="btn btn-outline-primary">
-          {isAuth() || token ? `${buttonText}` : "Log in to post"}
+          {isAuth() || token ? `${buttonText}` : "Log in to update"}
         </button>
       </div>
     </form>

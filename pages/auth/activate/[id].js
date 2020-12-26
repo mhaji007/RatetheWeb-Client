@@ -78,7 +78,7 @@ const ActivateAccount = ({ router }) => {
       <div className="row">
         <div className="col-md-6 offset-md-3">
           <h1>Hello {name}, </h1>
-          <p>Ready to activate your account? </p>
+          <p> You're almost there! Let's activate your account. </p>
           {success && showSuccessMessage(success)}
           {error && showErrorMessage(error)}
           <button
