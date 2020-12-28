@@ -5,7 +5,7 @@
 
 import axios from "axios";
 import { useEffect } from "react";
-import {isAuth } from "../../helpers/auth";
+import { isAuth } from "../../helpers/auth";
 import Router from "next/router";
 
 function RegisterForm({ state, setState }) {
@@ -25,12 +25,69 @@ function RegisterForm({ state, setState }) {
       buttonText: "Register",
     });
   };
+
+  // Function for adding toggled
+  // checkboxes to categories array
+  const handleToggle = (c) => (e) => {
+    // Look to to see whether
+    // category id of the item toggled
+    // already exists in the category array
+    // Return first index or -1
+    const clickedCategory = categories.indexOf(c);
+    const all = [...categories];
+
+    if (clickedCategory === -1) {
+      all.push(c);
+    } else {
+      all.splice(clickedCategory, 1);
+    }
+    console.log("all >> categories", all);
+    setState({ ...state, categories: all, success: "", error: "" });
+  };
+
+  const displayCategories = () => {
+    return (
+      loadedCategories &&
+      loadedCategories.map((c, i) => (
+        <li className="list-unstyled" key={c._id}>
+          {/* Regarding the check property:
+          This is useful for when CategoryCheckboxForm is reused in
+          user/link/[id] as part of prepopulating the old data in link update process.
+          What it does it it loops through the whole loadedCategories from server and check
+          if in a category array selected by the user, there is a category that has the same
+          id of any loadedCategories is found. If true, set that category to checked  */}
+          <input
+            type="checkbox"
+            onChange={handleToggle(c._id)}
+            checked={categories.includes(c._id)}
+          />
+          <label className="form-check-label ml-2">{c.name}</label>
+        </li>
+      ))
+    );
+  };
+
   // Destructure state variables
-  const { name, email, password, buttonText, error, success } = state;
+  const {
+    name,
+    email,
+    password,
+    buttonText,
+    categories,
+    loadedCategories,
+    error,
+    success,
+  } = state;
 
   // Using axios with async await
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.table({
+      name,
+      email,
+      password,
+      categories
+    })
     setState({ ...state, buttonText: "Registering..." });
     try {
       const response = await axios.post(
@@ -39,6 +96,7 @@ function RegisterForm({ state, setState }) {
           name,
           email,
           password,
+          categories
         }
       );
       console.log(response);
@@ -123,9 +181,17 @@ function RegisterForm({ state, setState }) {
           required
           onChange={handleChange("password")}
         />
-        <div className="form-group"></div>
-        <div className="form-group">
-          <button className="btn-outline-primary">{buttonText}</button>
+
+        <div className="form-group mt-3  ">
+          <p>Please select at least one category of interest</p>
+          <ul style={{ maxHeight: "140px", overflowY: "scroll" }} className="p-0" >
+            {displayCategories()}
+          </ul>
+          <div className="form-group ">
+            <p className="text-center">
+              <button className="btn btn-outline-primary">{buttonText}</button>
+            </p>
+          </div>
         </div>
       </div>
     </form>
