@@ -9,6 +9,8 @@ import moment from "moment";
 import InfiniteScroll from "react-infinite-scroller";
 
 function Links({ query, category, links, totalLinks, linksLimit, linkSkip }) {
+  console.log("category ====>", category)
+  console.log("links ====>", links)
   // State for storing all links.
   // The reason for storing links in state instead of mapping through links,
   // is that when we have load more button is clicked, we end up with more links
@@ -50,10 +52,7 @@ function Links({ query, category, links, totalLinks, linksLimit, linkSkip }) {
           <a href={l.url} target="_blank">
             <h5 className="pt-2">{l.title}</h5>
             {/* Display link */}
-            <h6
-              className="pt-2 text-primary"
-              style={{ fontSize: "14px" }}
-            >
+            <h6 className="pt-2 text-primary" style={{ fontSize: "14px" }}>
               {l.url}
             </h6>
           </a>
@@ -202,7 +201,7 @@ Links.getInitialProps = async ({ query, req }) => {
     `${process.env.NEXT_PUBLIC_API}/category/${query.slug}`,
     { skip, limit }
   );
-
+  console.log(response)
   return {
     // return query
     // so we have access to slug

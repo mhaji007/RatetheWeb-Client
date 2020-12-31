@@ -82,7 +82,7 @@ const ActivateAccount = ({ router }) => {
           {success && showSuccessMessage(success)}
           {error && showErrorMessage(error)}
           <button
-            className="btn-outline-primary btn-block"
+            className="btn btn-outline-primary btn-block"
             onClick={clickSubmit}
           >
             {buttonText}

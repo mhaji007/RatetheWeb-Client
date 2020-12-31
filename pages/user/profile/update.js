@@ -1,25 +1,27 @@
 // Page responsible for displaying the register form
 
 import { useState, useEffect } from "react";
-import RegisterForm from "../components/forms/RegisterForm";
-import axios from "axios"
-import {showSuccessMessage, showErrorMessage} from "../helpers/alerts"
+import UpdateUserForm from "../../../components/forms/UpdateUserForm";
+import axios from "axios";
+import { showSuccessMessage, showErrorMessage } from "../../../helpers/alerts";
+import withUser from "../../withUser"
 
-const Register = () => {
+
+const UpdateProfile = ({user, token}) => {
   // State for storing all user input fields
   const [state, setState] = useState({
-    name: "",
-    email: "",
+    name: user.name,
+    email: user.email,
     password: "",
     error: "",
     success: "",
-    buttonText: "Register",
+    buttonText: "Update Profile",
     // Existing category
     // from server
-    loadedCategories:[],
+    loadedCategories: [],
     // Selected categories to
     // be sent back to server
-    categories:[]
+    categories: user.categories
   });
 
   // Load categories when component mounts using useEffect
@@ -43,16 +45,16 @@ const Register = () => {
   return (
     <>
       <div className="col-md-6 offset-md-3 ">
-        <h1 className="text-center mb-2">Register</h1>
+        <h1 className="text-center mb-2">UpdateProfile</h1>
         <br />
         {success && showSuccessMessage(success)}
         {error && showErrorMessage(error)}
-        <RegisterForm state={state} setState={setState} />
+        <UpdateUserForm state={state} setState={setState} token={token} />
         <br />
         {/* {JSON.stringify(state)} */}
       </div>
     </>
   );
-}
+};
 
-export default Register
+export default withUser(UpdateProfile);

@@ -31,6 +31,11 @@ const User = ({user}) => {
                 <a className="nav-link"> Update/Delete Link</a>
               </Link>
             </li>
+            <li className="nav-item">
+              <Link href="/user/profile/update">
+                <a className="nav-link"> Update Profile</a>
+              </Link>
+            </li>
           </ul>
         </div>
         <div className="col-md-8"></div>
