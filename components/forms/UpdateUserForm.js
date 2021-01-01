@@ -5,11 +5,10 @@
 
 import axios from "axios";
 import { useEffect } from "react";
-import { isAuth } from "../../helpers/auth";
+import { isAuth, updateUser } from "../../helpers/auth";
 import Router from "next/router";
 
 function UpdateUserForm({ state, setState, token }) {
-
   // Dynamic onChange handler
   // used by all inputs
   const handleChange = (name) => (e) => {
@@ -92,18 +91,20 @@ function UpdateUserForm({ state, setState, token }) {
           name,
           password,
           categories,
-        }, {
+        },
+        {
           headers: {
-            Authorization: `Bearer ${token}`
-          }
+            Authorization: `Bearer ${token}`,
+          },
         }
       );
       console.log(response);
-      setState({
-        ...state,
-        buttonText: "Updated",
-        // success: response.data.message,
-        success: "Profile was updated successfully",
+      updateUser(response.data, () => {
+        setState({
+          ...state,
+          success: "Your link was successfully updated",
+          buttonText: "Updated",
+        });
       });
     } catch (error) {
       console.log(error);

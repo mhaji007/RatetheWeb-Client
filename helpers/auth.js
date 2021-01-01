@@ -141,3 +141,21 @@ export const logOut = () => {
   removeCookie("token");
   removeLocalStorage("user");
 };
+
+
+// Function for updating user in local storage.
+// When user updates profile information using
+// update form the updated value (e.g., name) is not reflected
+// in real time. For this reason there is a need for a
+// helper function to update this information in local storage
+// right after successful submission of new input
+export const updateUser = (user, next) => {
+  if (process.browser) {
+    if (localStorage.getItem("user")) {
+      let auth = JSON.parse(localStorage.getItem("user"));
+      auth = user;
+      localStorage.setItem("user", JSON.stringify(auth));
+      next();
+    }
+  }
+};
