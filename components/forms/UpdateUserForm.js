@@ -100,6 +100,9 @@ function UpdateUserForm({ state, setState, token }) {
       );
       console.log(response);
       updateUser(response.data, () => {
+        // Reload the page on success to reflect the
+        // updated name
+        window && window.location.reload();
         setState({
           ...state,
           success: "Your link was successfully updated",

@@ -3,10 +3,10 @@
 // categoriers are fetched serverside
 // and are made avaialbe on page visit
 import axios from "axios";
-import {useState, useEffect} from "react"
+import { useState, useEffect } from "react";
 import styles from "./index.module.css";
 import Link from "next/Link";
-import moment from "moment"
+import moment from "moment";
 
 const Home = ({ categories }) => {
   const [popular, setPopular] = useState([]);
@@ -16,19 +16,20 @@ const Home = ({ categories }) => {
   }, []);
 
   const loadPopular = async () => {
-    const response = await axios.get(`${process.env.NEXT_PUBLIC_API}/link/popular`);
+    const response = await axios.get(
+      `${process.env.NEXT_PUBLIC_API}/link/popular`
+    );
     // console.log(response);
     setPopular(response.data);
   };
 
-
-    const handleClick = async (linkId) => {
-      const response = await axios.put(
-        `${process.env.NEXT_PUBLIC_API}/click-count`,
-        { linkId }
-      );
-      loadPopular();
-    };
+  const handleClick = async (linkId) => {
+    const response = await axios.put(
+      `${process.env.NEXT_PUBLIC_API}/click-count`,
+      { linkId }
+    );
+    loadPopular();
+  };
 
   const listOfLinks = () =>
     popular.map((l, i) => (
