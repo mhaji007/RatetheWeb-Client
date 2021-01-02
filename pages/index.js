@@ -21,6 +21,15 @@ const Home = ({ categories }) => {
     setPopular(response.data);
   };
 
+
+    const handleClick = async (linkId) => {
+      const response = await axios.put(
+        `${process.env.NEXT_PUBLIC_API}/click-count`,
+        { linkId }
+      );
+      loadPopular();
+    };
+
   const listOfLinks = () =>
     popular.map((l, i) => (
       <div
