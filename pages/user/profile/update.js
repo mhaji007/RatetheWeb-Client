@@ -25,7 +25,7 @@ const UpdateProfile = ({user, token}) => {
   });
 
   // Load categories when component mounts using useEffect
-  // Display categories on upon registering for user to
+  // Display categories upon registering for user to
   // pick at least one from
   // Once another user posts a link in that category
   // our user will be notified via email
