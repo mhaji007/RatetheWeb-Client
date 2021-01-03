@@ -7,6 +7,7 @@ import Link from "next/Link";
 import renderHTML from "react-render-html";
 import moment from "moment";
 import InfiniteScroll from "react-infinite-scroller";
+import Head from "next/head";
 
 function Links({ query, category, links, totalLinks, linksLimit, linkSkip }) {
   console.log("category ====>", category);
@@ -25,6 +26,28 @@ function Links({ query, category, links, totalLinks, linksLimit, linkSkip }) {
   const [size, setSize] = useState(totalLinks);
   // State for storing category-specific popular/trending links (based on clicks)
   const [popular, setPopular] = useState([]);
+
+      const stripHTML = (data) => data.replace(/<\/?[^>]+(>|$)/g, "");
+
+      const head = () => (
+        <Head>
+          <title>
+            {category.name} | {process.env.NEXT_PUBLIC_APP_NAME}
+          </title>
+          <meta
+            name="description"
+            content={stripHTML(category.content.substring(0, 160))}
+          />
+          <meta property="og:title" content={category.name} />
+          <meta
+            property="og:description"
+            content={stripHTML(category.content.substring(0, 160))}
+          />
+          <meta property="og:image" content={category.image.url} />
+          <meta property="og:image:secure_url" content={category.image.url} />
+        </Head>
+      );
+
 
   useEffect(() => {
     loadPopular();
@@ -205,6 +228,7 @@ function Links({ query, category, links, totalLinks, linksLimit, linkSkip }) {
 
   return (
     <>
+    {head()}
       <div className="row ">
         {/* Display content */}
         <div className="col-md-8">
