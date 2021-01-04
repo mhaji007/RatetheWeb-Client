@@ -5,7 +5,7 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 import styles from "./index.module.css";
-import Link from "next/Link";
+import Link from "next/link";
 import moment from "moment";
 
 const Home = ({ categories }) => {

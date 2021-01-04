@@ -6,7 +6,7 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import CreateCategoryForm from "../../../components/forms/CreateCategoryForm";
 import { showSuccessMessage, showErrorMessage } from "../../../helpers/alerts";
-import Link from "next/Link";
+import Link from "next/link";
 import styles from "./list.module.css";
 
 function List({ user, token }) {

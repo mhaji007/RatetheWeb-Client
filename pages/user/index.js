@@ -1,6 +1,6 @@
 // Page for displaying user dashboard
 
-import Link from "next/Link";
+import Link from "next/link";
 import Router from "next/router";
 import axios from "axios";
 import moment from "moment";

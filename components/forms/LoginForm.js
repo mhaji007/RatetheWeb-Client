@@ -5,7 +5,6 @@
 
 import axios from "axios";
 import {useEffect} from "react";
-import Link from "next/Link";
 import { authenticate, isAuth } from "../../helpers/auth";
 import Router from "next/router";
 

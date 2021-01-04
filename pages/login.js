@@ -4,7 +4,7 @@ import { useState } from "react";
 import LoginForm from "../components/forms/LoginForm";
 import { showSuccessMessage, showErrorMessage } from "../helpers/alerts";
 import Router from "next/router";
-import Link from "next/Link";
+import Link from "next/link";
 
 const Login = () => {
   // State for storing all user input fields

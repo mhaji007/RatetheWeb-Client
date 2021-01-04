@@ -2,7 +2,7 @@
 // Page for displaying admin dashboard
 
 import withAdmin from "../withUser";
-import Link from "next/Link";
+import Link from "next/link";
 
 const User = ({user}) => {
   return(

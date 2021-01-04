@@ -3,7 +3,6 @@
 // along with all the associated links
 import { useState, useEffect } from "react";
 import axios from "axios";
-import Link from "next/Link";
 import renderHTML from "react-render-html";
 import moment from "moment";
 import InfiniteScroll from "react-infinite-scroller";

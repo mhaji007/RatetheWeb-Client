@@ -1,7 +1,6 @@
 // Page for resetting user's password
 
 import { useState, useEffect } from "react";
-import axios from "axios";
 import { showSuccessMessage, showErrorMessage } from "../../../../helpers/alerts";
 import Router, { withRouter } from "next/router";
 // for decoding and displaying the name of the user off token

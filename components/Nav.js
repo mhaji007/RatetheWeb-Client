@@ -2,7 +2,7 @@
 // used in Layout component
 // Role-based redirect is implemented here
 
-import Link from "next/Link";
+import Link from "next/link";
 import { isAuth, logOut } from "../helpers/auth";
 import styles from "./Nav.module.css"
 
