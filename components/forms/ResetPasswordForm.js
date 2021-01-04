@@ -56,7 +56,7 @@ function ResetPasswordForm({ state, setState }) {
         />
       </div>
       <div className="form-group">
-        <button className="btn-outline-primary">{buttonText}</button>
+        <button className=" btn btn-outline-primary">{buttonText}</button>
       </div>
     </form>
   );

@@ -77,7 +77,7 @@ function LoginForm({ state, setState }) {
         />
         <div className="form-group"></div>
         <div className="form-group">
-          <button className="btn-outline-primary">{buttonText}</button>
+          <button className=" btn btn-outline-primary">{buttonText}</button>
         </div>
       </div>
     </form>
