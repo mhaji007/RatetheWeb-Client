@@ -1,3 +1,5 @@
+When looking for inspiration or answers to my questions I always end up book-marking more pages than I initially expect. Scrolling through all these pages to locate a specific resource could be daunting, so I created this website for myself and others who would like to keep a record of most valuable resources on the net. The trending sections in home and category pages are based on the number of clicks each link has received. The higher the number, the higher the ranking.
+
 <table>
   <tr>
     <td><img src="readmeImages/JSES6.jpg" width=600 height=120></td>
