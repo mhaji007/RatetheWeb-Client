@@ -17,11 +17,7 @@ When looking for inspiration or answers to my questions I always end up book-mar
 
 ## Demo
 
-### Homepage
-
-![rate-the-web](https://user-images.githubusercontent.com/22078200/103574520-1b045480-4e9e-11eb-9d80-54bfc77c3e91.gif)
-
-## Category page
+## Homepage and Category page
 
 After clicking on any of the categories user is directed to a page where posts submitted under that category are displayed. After clicking on any of the submitted links click count is increased. This click count is then used in displaying popular and trending links on homepage as well as the category page.
 
