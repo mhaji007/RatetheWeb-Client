@@ -17,6 +17,12 @@ When looking for inspiration or answers to my questions I always end up book-mar
 
 ## Demo
 
+## Register page
+Upon registering user is prompted to pick at least one category of interest. Later if other users post in the same category, our user receives an email informing of them of this new post.
+
+![image](https://user-images.githubusercontent.com/22078200/105930560-d476c580-6017-11eb-8d55-a445fc210d4b.png)
+
+
 ### Homepage and Category page
 
 After clicking on any of the categories user is directed to a page where posts submitted under that category are displayed. After clicking on any of the submitted links click count is increased. This click count is then used in displaying popular and trending links on homepage as well as the category page.
