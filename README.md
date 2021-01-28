@@ -30,7 +30,7 @@ After clicking on any of the categories user is directed to a page where posts s
 ![category and click count](https://user-images.githubusercontent.com/22078200/105924004-6a582380-600b-11eb-9bc2-4485fe035d53.gif)
 
 
-## Demo
+## NOTE
 The app is currently in sandbox mode with AWS, so it only works with emails registered with AWS.
 
 ## TODOS
